@@ -3,6 +3,16 @@
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\StyleController;
+use App\Http\Controllers\OderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,46 +31,46 @@ use App\Http\Controllers\SocialController;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
+Route::get('/home', [HomeController::class, 'index'])->name('welcome');
 
 //==================================CLIENT==================================================
 Route::prefix('/')->group(function () {
-    Route::get('logout', [App\Http\Controllers\LoginController::class, 'logout']);
-    Route::resource('/', \App\Http\Controllers\HomeController::class);
-    Route::get('/product', 'App\Http\Controllers\HomeController@product');
-    Route::get('/productDetail/{id}', 'App\Http\Controllers\HomeController@productDetail');
-    Route::get('/category-page/{id}', [App\Http\Controllers\HomeController::class, 'category_page']);
-    Route::get('/blog', 'App\Http\Controllers\HomeController@blog');
-    Route::get('/contact', 'App\Http\Controllers\HomeController@contact')->name('contact');
-    Route::resource('profile', App\Http\Controllers\ClientController::class)->middleware('checkProfile');
+    Route::get('logout', [LoginController::class, 'logout']);
+    Route::resource('/', HomeController::class);
+    Route::get('/product', 'HomeController@product');
+    Route::get('/productDetail/{id}', 'HomeController@productDetail');
+    Route::get('/category-page/{id}', [HomeController::class, 'category_page']);
+    Route::get('/blog', 'HomeController@blog');
+    Route::get('/contact', 'HomeController@contact')->name('contact');
+    Route::resource('profile', ClientController::class)->middleware('checkProfile');
 });
 
 //===============================Cart Checkout=============================================
 Route::prefix('/')->middleware('checkAddCart')->group(function () {
-    Route::post('/save-cart', [\App\Http\Controllers\ClientController::class, 'save_cart']);
-    Route::get('/show-cart', [\App\Http\Controllers\ClientController::class, 'show_cart'])->name('show.cart');
-    Route::post('/update-cart-quantity', [\App\Http\Controllers\ClientController::class, 'update_cart_quantity']);
-    Route::get('/delete-to-cart/{rowId}', [\App\Http\Controllers\ClientController::class, 'delete_to_cart']);
-    Route::get('/checkout', [\App\Http\Controllers\ClientController::class, 'checkout']);
+    Route::post('/save-cart', [ClientController::class, 'save_cart']);
+    Route::get('/show-cart', [ClientController::class, 'show_cart'])->name('show.cart');
+    Route::post('/update-cart-quantity', [ClientController::class, 'update_cart_quantity']);
+    Route::get('/delete-to-cart/{rowId}', [ClientController::class, 'delete_to_cart']);
+    Route::get('/checkout', [ClientController::class, 'checkout']);
 });
 
 
 //================================LOGIN======================================================
 Route::prefix('/')->group(function () {
-    Route::get('login', [\App\Http\Controllers\LoginController::class, 'login'])
+    Route::get('login', [LoginController::class, 'login'])
         ->name('admin.auth.login');
-    Route::post('login', [\App\Http\Controllers\LoginController::class, 'checkLogin'])
+    Route::post('login', [LoginController::class, 'checkLogin'])
         ->name('admin.auth.check-login');
 
-    Route::get('/quen-mat-khau', [\App\Http\Controllers\MailController::class, 'forgotPass']);
-    Route::get('/update-new-pass', [\App\Http\Controllers\MailController::class, 'updatePass']);
-    Route::post('/recover-pass', [\App\Http\Controllers\MailController::class, 'recoverPass']);
-    Route::post('/update-new-pass', [\App\Http\Controllers\MailController::class, 'update_new_pass']);
+    Route::get('/quen-mat-khau', [MailController::class, 'forgotPass']);
+    Route::get('/update-new-pass', [MailController::class, 'updatePass']);
+    Route::post('/recover-pass', [MailController::class, 'recoverPass']);
+    Route::post('/update-new-pass', [MailController::class, 'update_new_pass']);
 });
 
 
 //--------------------------Login Facebook--------------------------------
-Route::controller(App\Http\Controllers\SocialController::class)->group(function () {
+Route::controller(SocialController::class)->group(function () {
     Route::get('facebook', 'redirectToFacebook')->name('auth.facebook');
     Route::any('facebook/callback', 'handleFacebookCallback');
 });
@@ -74,19 +84,19 @@ Route::get('/google/callbackGG', [SocialController::class, 'callback_google']);
 //================================ADMIN======================================================
 
 Route::prefix('admin')->middleware('admin.login')->group(function () {
-    Route::get('logout', [App\Http\Controllers\LoginController::class, 'logout']);
+    Route::get('/logout', [App\Http\Controllers\LoginController::class, 'logout']);
 
-    Route::get('/home', 'App\Http\Controllers\AdminController@index')->name('admin.index');
-    Route::resource('user', \App\Http\Controllers\UserController::class);
-    Route::resource('accountadmin', \App\Http\Controllers\AdminController::class);
-    Route::resource('category', \App\Http\Controllers\CategoryController::class);
-    Route::resource('product', \App\Http\Controllers\ProductController::class);
+    Route::get('/home', 'AdminController@index')->name('admin.index');
+    Route::resource('user', UserController::class);
+    Route::resource('accountadmin', AdminController::class);
+    Route::resource('category', CategoryController::class);
+    Route::resource('product', ProductController::class);
     // Route::get('/product/edit/{id}', [App\Http\Controllers\ProductController::class, 'showw']);
-    Route::get('/unactive-product/{id}', [App\Http\Controllers\ProductController::class, 'unactive']);
-    Route::get('/active-product/{id}', [App\Http\Controllers\ProductController::class, 'active']);
+    Route::get('/unactive-product/{id}', [ProductController::class, 'unactive']);
+    Route::get('/active-product/{id}', [ProductController::class, 'active']);
     // ->middleware('auth.admin.products');
-    Route::resource('style', \App\Http\Controllers\StyleController::class);
-    Route::resource('oder', \App\Http\Controllers\OderController::class);
+    Route::resource('style', StyleController::class);
+    Route::resource('oder', OderController::class);
 });
 
 

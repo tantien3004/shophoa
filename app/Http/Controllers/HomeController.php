@@ -25,8 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = ProductModel::orderBy('id', 'DESC')->paginate(11);
-        $categories = CategoryModel::orderBy('id', 'DESC')->get();
+        $products = ProductModel::orderbyDesc('id')->paginate(11);
+        $categories = CategoryModel::orderbyDesc('id')->get();
 
         return view('home', ['products' => $products, 'categories' => $categories]);
     }
@@ -34,7 +34,7 @@ class HomeController extends Controller
     public function productDetail($id)
     {
         $product = ProductModel::findOrFail($id);
-        $categories = CategoryModel::orderBy('id', 'DESC')->get();
+        $categories = CategoryModel::orderbyDesc('id')->get();
 
         // foreach ($product as $key => $value) {
         //     $category_id = $value->category_id;
@@ -46,21 +46,21 @@ class HomeController extends Controller
     public function blog()
     {
         $product = ProductModel::all();
-        $categories = CategoryModel::orderBy('id', 'DESC')->get();
+        $categories = CategoryModel::orderbyDesc('id')->get();
         return view('home.blog', ['product' => $product, 'categories' => $categories]);
     }
 
     public function contact()
     {
         $product = ProductModel::all();
-        $categories = CategoryModel::orderBy('id', 'DESC')->get();
+        $categories = CategoryModel::orderbyDesc('id')->get();
         return view('home.contact', ['product' => $product, 'categories' => $categories]);
     }
 
     public function category_page($id)
     {
-        $products = ProductModel::orderBy('id', 'DESC')->where('category_id', $id)->get();
-        $categories = CategoryModel::orderBy('id', 'DESC')->get();
+        $products = ProductModel::orderbyDesc('id')->where('category_id', $id)->get();
+        $categories = CategoryModel::orderbyDesc('id')->get();
         $category = CategoryModel::findOrFail($id);
 
         return view('home.category_page', ['products' => $products, 'categories' => $categories, 'category' => $category]);

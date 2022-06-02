@@ -28,5 +28,14 @@ class UserSeeder extends Seeder
                 'address' => $faker->address,
             ]);
         }
+        
+
+        $data = [
+            [
+                'email' => 'lxc150896@gmail.com',
+                'password' => bcrypt('12345'),
+            ]
+            ];
+            DB::table('user')->insert($data);
     }
 }
