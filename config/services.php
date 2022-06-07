@@ -2,18 +2,6 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Third Party Services
-    |--------------------------------------------------------------------------
-    |
-    | This file is for storing the credentials for third party services such
-    | as Mailgun, Postmark, AWS and more. This file provides the de facto
-    | location for this type of information, allowing packages to have
-    | a conventional file to locate the various service credentials.
-    |
-    */
-
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
@@ -35,14 +23,12 @@ return [
         'client_id' => '389360993093111',
         'client_secret' => 'e8258dc6f5294434c14657b2d96d3c6a',
         'redirect' => 'http://127.0.0.1:8000/facebook/callback',
-    ],
+    ], //chưa chỉnh 
 
     'google' => [
-        'client_id' => '699283675625-q2mbi8n26efnlgntkh7oblc50lou9ck0.apps.googleusercontent.com',
-        'client_secret' => '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',
-        'redirect' => 'http://localhost:8000/google/callbackGG',
-    ],
-
-
+        'client_id' => '685355693811-u4iq8b7f4t2lekpqo0c8bk5rkrjfv067.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://localhost/shophoa/google/callback',
+    ], //đã chỉnh
 
 ];

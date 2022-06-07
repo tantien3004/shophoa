@@ -13,10 +13,12 @@ use Illuminate\Http\Request;
 
 class SocialController extends Controller
 {
+    //google
     public function login_google()
     {
         return Socialite::driver('google')->redirect();
     }
+
     public function callback_google()
     {
         $users = Socialite::driver('google')->stateless()->user();
@@ -25,11 +27,12 @@ class SocialController extends Controller
             $account_name = User::where('id', $authUser->user)->first();
             session()->put('name', $account_name->name);
             session()->put('id', $account_name->id);
-            // Auth
+            Auth::user(); //
         }
 
         return redirect('/')->with('message', 'Đăng nhập Admin thành công');
     }
+
     public function findOrCreateUser($users, $provider)
     {
         $authUser = Social::where('provider_user_id', $users->id)->first();
@@ -57,6 +60,8 @@ class SocialController extends Controller
             return $customer_new;
         }
     }
+
+
     //-------------------FaceBook---------------------------
 
     public function redirectToFacebook()

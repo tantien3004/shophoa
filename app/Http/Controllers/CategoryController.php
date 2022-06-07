@@ -8,38 +8,22 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $categories = CategoryModel::orderBy('id', 'DESC')->paginate(5);
+        $categories = CategoryModel::orderByDesc('id')->paginate(5);
 
         if ($key = request()->key) {
-            $categories = CategoryModel::orderBy('id', 'DESC')->where('name', 'like', '%' . $key . '%')->paginate(10);
+            $categories = CategoryModel::orderByDesc('id')->where('name', 'like', '%' . $key . '%')->paginate(10);
         }
 
         return view('admin/category.index', ['categories' => $categories]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin/category.new');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $rules = [
@@ -64,36 +48,17 @@ class CategoryController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $category = CategoryModel::findOrFail($id);
         return view('admin/category.edit', ['category' => $category]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $rules = [
@@ -117,12 +82,6 @@ class CategoryController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $category = CategoryModel::findOrFail($id);

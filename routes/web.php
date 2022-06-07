@@ -14,16 +14,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StyleController;
 use App\Http\Controllers\OderController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -86,7 +76,7 @@ Route::get('/google/callbackGG', [SocialController::class, 'callback_google']);
 Route::prefix('admin')->middleware('admin.login')->group(function () {
     Route::get('/logout', [App\Http\Controllers\LoginController::class, 'logout']);
 
-    Route::get('/home', 'AdminController@index')->name('admin.index');
+    Route::get('/home', [AdminController::class, 'index'])->name('admin.index');
     Route::resource('user', UserController::class);
     Route::resource('accountadmin', AdminController::class);
     Route::resource('category', CategoryController::class);

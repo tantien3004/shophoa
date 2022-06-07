@@ -17,11 +17,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id', 'DESC')->where('is_admin', 0)->paginate(10);
-        $user_admins = User::orderBy('id', 'DESC')->where('is_admin', 1)->paginate(10);
+        $users = User::orderbydesc('id')->where('is_admin', 0)->paginate(10);
+        $user_admins = User::orderbydesc('id')->where('is_admin', 1)->paginate(10);
 
         if ($key = request()->key) {
-            $users = User::orderBy('id', 'DESC')->where('name', 'like', '%' . $key . '%')->paginate(10);
+            $users = User::orderbydesc('id')->where('name', 'like', '%' . $key . '%')->paginate(10);
         }
 
         return view('admin/user.index', ['users' => $users, 'user_admins' => $user_admins]);
@@ -74,36 +74,20 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show($id)
     {
-        //
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $user = User::findOrFail($id);
         return view('admin/user.edit', ['user' => $user]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $rules = [
@@ -132,12 +116,7 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);

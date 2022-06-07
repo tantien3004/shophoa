@@ -11,7 +11,7 @@ class Social extends Model
     public $timestamps = false;
     protected $fillable = ['provider_user_id', 'provider', 'user'];
     protected $primaryKey = 'user_id';
-    protected $table = 'tbl_social';
+    protected $table = 'social';
     public function login()
     {
         return $this->belongsTo('app\Models\User', 'user');
