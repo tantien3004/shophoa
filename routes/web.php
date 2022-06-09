@@ -15,10 +15,6 @@ use App\Http\Controllers\StyleController;
 use App\Http\Controllers\OderController;
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('welcome');

@@ -48,7 +48,7 @@
                         <input type="file" class="form-control" id="avatar" placeholder="Ảnh thẻ" hidden name="avatar" value="{{old('avatar')}}">
                         <span class="error-message" style="color: red">{{ $errors->first('avatar') }}</span>
                       </label>
-                      <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                      <p class="text-muted mb-0"></p>
                     </div>
                   </div>
                 </div>

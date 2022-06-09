@@ -59,7 +59,7 @@
     </div>
     <div class="humberger__menu__contact">
         <ul>
-            <li><i class="fa fa-envelope"></i>{{ Auth::user()->email }}</li>
+            <li><i class="fa fa-envelope"></i>{{ Auth::user()?->email }}</li>
         </ul>
     </div>
 </div>
@@ -73,7 +73,7 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="header__top__left">
                         <ul>
-                            <li><i class="fa fa-envelope"></i>{{ Auth::user()->email }}</li>
+                            <li><i class="fa fa-envelope"></i>{{ Auth::user()?->email }}</li>
                         </ul>
                     </div>
                 </div>
@@ -103,9 +103,9 @@
                             <div class="auth">
                                 @if(Auth::check())
                                     @if (Auth::user()->is_admin==1)
-                                    Xin chào: <a href="{{url('admin/home')}}">{{Auth::user()->name}}</a>
+                                    Xin chào: <a href="{{url('admin/home')}}">{{Auth::user()?->name}}</a>
                                     @else
-                                    Xin chào:  <a href="{{route('profile.edit', ['profile'=>Auth::user()->id])}}">{{Auth::user()->name}}</a>
+                                    Xin chào:  <a href="{{route('profile.edit', ['profile'=>Auth::user()->id])}}">{{Auth::user()?->name}}</a>
                                     @endif
                                 @else
                                 <a href="/login"><i class="fa fa-user"></i> LogIn</a>

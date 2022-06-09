@@ -14,54 +14,25 @@ use Illuminate\Support\Facades\Redirect;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $user = User::findOrFail($id);
@@ -71,13 +42,6 @@ class ClientController extends Controller
         return view('home.profile_client', ['user' => $user, 'categories' => $categories, 'products' => $products]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $rules = [
@@ -132,7 +96,7 @@ class ClientController extends Controller
 
     public function show_cart()
     {
-        $categories = CategoryModel::orderBy('id', 'DESC')->get();
+        $categories = CategoryModel::orderByDesc('id')->get();
 
         return view('home.client.show_cart', ['categories' => $categories]);
     }
@@ -154,7 +118,7 @@ class ClientController extends Controller
 
     public function checkout()
     {
-        $categories = CategoryModel::orderBy('id', 'DESC')->get();
+        $categories = CategoryModel::orderByDesc('id')->get();
         return view('home.client.checkout', ['categories' => $categories]);
     }
 
